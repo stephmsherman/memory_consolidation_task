@@ -1,0 +1,707 @@
+r$crsp=droplevels(r$crsp)
+r$crs
+r$crsp
+r$crsp=droplevels(r$crsp)#
+r$rsp=droplevels(r$rsp)#
+r$cat=droplevels(r$cat)#
+r$run=droplevels(r$run)
+r$acc
+r$acc=as.character(r$acc)
+r$acc=as.numeric(r$acc)
+r$acc
+r$trl=as.character(r$trl)#
+r$trl=as.numeric(r$trl)
+r$RT=as.character(r$rt)
+r$RT
+r$RT=as.numeric(r$RT, "NA")
+r$RT
+seq(1,dim(r)[1])
+row.names(r)=seq(1,dim(r)[1])
+rt=r[r$RT<=.1 & r$RT!="NaN",]
+rt
+is.na(rt$RT)
+summary(is.na(rt$RT))
+participant = "31"#
+list = 1#
+#
+one=read.csv(paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/words/all_words_list",list,".csv",sep=""))#
+#
+head(one)#
+#
+#create a sequence from 1 to however many word pairs are in the list (54)#
+number=seq(1,dim(one)[1])#
+#
+#randomize numbers#
+random1=sample(number)#
+random2=sample(number)#
+random3=sample(number)#
+#
+###order the list using the randomized numbers#
+#for the study phase (random_study)#
+random_study=one[random1,]#
+#
+#for the first test phase (random_study_recall)#
+random_study_recall=one[random2,]#
+#
+#for the actual recall tests#
+random_recall=one[random3,]#
+#
+night_test= random_recall[1:((dim(one)[1])/2),]#
+morning_test= random_recall[(((dim(one)[1])/2)+1):(dim(one)[1]),]#
+#
+#write out #
+write.csv(random_study,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(random_study_recall,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(night_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/night_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+write.csv(morning_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/morning_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)
+8+8+8+9
+4/12
+r=read.csv("/Volumes/schnyer/david/rtAT/RT03/Data/SART/output_files/RT03_results_no_short_rt.csv")
+head(r)
+table(r)
+table(r$subject)
+str(r)
+r$subject
+r$subject=as.factor(as.character(r$subject))
+r$subject
+r$group=as.factor(as.character(r$group))
+str(r)
+r=r[r$group!="2",]
+r$group=droplevels(r$group)
+str(r)
+levels(r$group)
+levels(r$group)=c("depressed","control")
+str(r)
+r=read.csv("/Volumes/schnyer/david/rtAT/RT03/Data/SART/output_files/RT03_results_no_short_rt.csv")#
+#
+#check data#
+head(r)#
+str(r)#
+#
+#make sure columns are in correct format#
+#change subject and group to a factor#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$subject=as.factor(as.character(r$subject))
+r
+r[order(r$date),]
+range(r$date)
+str(r)
+table(r$date)
+table(r$group)
+r=read.csv("/Volumes/schnyer/david/rtAT/RT03/Data/SART/output_files/RT03_results_no_short_rt.csv")#
+#
+#check data#
+head(r)#
+str(r)#
+#
+#make sure columns are in correct format#
+#change subject and group to a factor#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$subject=as.factor(as.character(r$subject))#
+r$group=as.factor(as.character(r$group))#
+#removing the subject numbers that start with 2 because those are IDs from RT02?#
+# subject 203 has the same data and time created as#
+r=r[r$group!="2",]#
+r$group=droplevels(r$group)#
+#
+levels(r$group)=c("depressed","control")#
+str(r)
+str(r)
+table(r$group)
+r$date=droplevels(r$date)
+r=read.csv("/Volumes/schnyer/david/rtAT/RT03/Data/SART/output_files/RT03_results_no_short_rt.csv")#
+#
+#check data#
+head(r)#
+str(r)#
+#
+#make sure columns are in correct format#
+#change subject and group to a factor#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$subject=as.factor(as.character(r$subject))#
+r$group=as.factor(as.character(r$group))#
+#removing the subject numbers that start with 2 because those are IDs from RT02?#
+# subject 203 has the same data and time created as#
+r=r[r$group!="2",]#
+r$group=droplevels(r$group)#
+r$subject=droplevels(r$subject)#
+r$date=droplevels(r$date)#
+#
+levels(r$group)=c("depressed","control")#
+str(r)
+table(r$group)
+library(doBy)
+summaryBy(hit.rate.scene.emotional+ hit.rate.face.emotional+ hit.rate.face.neutral~r, r,FUN=c(mean))
+summaryBy(hit.rate.scene.emotional+ hit.rate.face.emotional+ hit.rate.face.neutral~r, r,FUN=c(range))
+summaryBy(hit.rate.scene.emotional+ hit.rate.face.emotional+ hit.rate.face.neutral~r, r,FUN=c(min))
+summaryBy(FA.face.emotional + FA.scene.emotional + FA.scene.neutral ~r, r,FUN=c(max))
+boxplot(r$hit.rate.scene.emotional)
+boxplot(r[,1:4])
+boxplot(r[,4:7])
+stripchart(r[,4:7], vertical=TRUE,add=TRUE)
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"))
+r$group=="depressed"
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jittered=.2)
+?stripchart
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jitter=.2)
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jitter=2)
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jitter=.1)
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jitter=5)
+stripchart(r[,4:7], vertical=TRUE,add=TRUE,col=ifelse(r$group=="depressed","red","black"),jitter=5, offset=1/5)
+r[,4:7]
+head(r)
+times=list(c("emotional","neutral"),c("face","scene")
+)
+times
+t=r[,c("subject","date","group","correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")]
+t
+reshape(t,idvars=c("subject","date","group"),timevar=c("valence","stimulus_type"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")))
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence","stimulus_type"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")))
+list(c("correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")
+)
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence","stimulus_type"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")),direction="long")
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence"),times=list(c("emotional","neutral")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.face.neutral","correct.rejection.scene.emotional","correct.rejection.scene.neutral")),direction="long")
+list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional",c("correct.rejection.face.neutral""correct.rejection.scene.neutral"))
+list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional",c("correct.rejection.face.neutral","correct.rejection.scene.neutral"))
+)
+list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional"),c("correct.rejection.face.neutral","correct.rejection.scene.neutral"))
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional"),c("correct.rejection.face.neutral","correct.rejection.scene.neutral")),direction="long")
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence","stimulus_type"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional"),c("correct.rejection.face.neutral","correct.rejection.scene.neutral")),direction="long")
+?reshape
+reshape(t,idvar=c("subject","date","group"),timevar=c("valence","stimulus_type"),times=list(c("emotional","neutral"),c("face","scene")),v.names=c("correct_rejection"),varying=list(c("correct.rejection.face.emotional","correct.rejection.scene.emotional"),c("correct.rejection.face.neutral","correct.rejection.scene.neutral")),direction="long",sep=".")
+?reshape
+75+100+40
+220+120
+80+100
+75+50
+100+17+5
+122+100+80+75+120+125+100+20+15+15
+7*15
+7*175
+30*9
+20*9
+105+1225+200+270+180
+250*3
+31+7+2
+2473-1980
+40*9
+105+1225+200+360+180
+2473-2070
+r=read.csv("/Volumes/schnyer/david/rtAT/RT03/Data/SART/output_files/RT03_results_no_short_rt.csv")#
+#
+#libraries used#
+library(doBy)#
+#check data#
+head(r)#
+str(r)#
+#
+#make sure columns are in correct format#
+#change subject and group to a factor#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$subject=as.factor(as.character(r$subject))#
+r$group=as.factor(as.character(r$group))#
+#removing the subject numbers that start with 2 because those are IDs from RT02?#
+# subject 203 has the same data and time created as#
+r=r[r$group!="2",]#
+r$group=droplevels(r$group)#
+r$subject=droplevels(r$subject)#
+r$date=droplevels(r$date)#
+#
+levels(r$group)=c("depressed","control")#
+str(r)
+p=aov(dprime.face.neutral~group, r)
+summary(p)
+p=aov(aprime.face.neutral~group, r)
+p=aov(aPrime.face.neutral~group, r)
+summary(p)
+p=aov(dprime.face.emotional~group, r)
+summary(p)
+p=aov(aPrime.face.emotional~group, r)
+summary(p)
+p=aov(dprime.scene.neutral~group, r)
+p=aov(aPrime.scene.neutral~group, r)
+summary(p)
+p=aov(dprime.scene.emotional~group, r)
+summary(p)
+p=aov(aPrime.scene.emotional~group, r)
+summary(p)
+model.tables(p, "p")
+model.tables(p, "means")
+results=data.frame(c())#
+#
+## list all files called behavioral.txt#
+files=Sys.glob("/Volumes/schnyer/david/rtAT/RT03/Data/SART/???/behavior.txt")
+files
+s=1
+#reads in file; knows that comments start with a *. #
+r=read.table(files[s],header=TRUE,sep="	", comment.char="*")#
+r$date=substring(readLines(files[s])[4],14,33)#
+###take out reprinted header before each start to a new run#
+r=r[r$run!="run",]#
+##dropping levels from the header#
+r$crsp=droplevels(r$crsp)#
+r$rsp=droplevels(r$rsp)#
+r$cat=droplevels(r$cat)#
+r$run=droplevels(r$run)#
+#puts accuracy column in right format- numeric#
+#this must be changed because the header reprinted in the file made every column a categorical variable#
+r$acc=as.character(r$acc)#
+r$acc=as.numeric(r$acc)#
+r$trl=as.character(r$trl)#
+r$trl=as.numeric(r$trl)#
+#
+## puts RT in correct format#
+r$RT=as.character(r$rt)#
+r$RT=as.numeric(r$RT, "NA")#
+#
+##change row names after we remove several rows. Need rows names to be same as row lengtb#
+row.names(r)=seq(1,dim(r)[1])
+rt=r[r$RT<=.1 & r$RT!="NaN",]
+summary(is.na(rt$RT))
+short_rt=row.names(rt)
+short_rt
+length(short_rt)
+no_short_rt=r[ !(rownames(r) %in% short_rt), ]
+range(no_short_rt$RT,na.rm=TRUE)
+summary(no_short_rt$RT)
+#create empty data frame called results#
+results=data.frame(c())#
+#
+## list all files called behavioral.txt#
+files=Sys.glob("/Volumes/schnyer/david/rtAT/RT03/Data/SART/???/behavior.txt")#
+#
+for (s in 1:length(files)){#
+#
+#reads in file; knows that comments start with a *. #
+r=read.table(files[s],header=TRUE,sep="	", comment.char="*")#
+r$date=substring(readLines(files[s])[4],14,33)#
+results=rbind(results,r)#
+}
+results
+#create empty data frame called results#
+results=data.frame(c())#
+#
+## list all files called behavioral.txt#
+files=Sys.glob("/Volumes/schnyer/david/rtAT/RT03/Data/SART/???/behavior.txt")#
+#
+for (s in 1:length(files)){#
+#
+#reads in file; knows that comments start with a *. #
+r=read.table(files[s],header=TRUE,sep="	", comment.char="*")#
+r$date=substring(readLines(files[s])[4],14,33)#
+###take out reprinted header before each start to a new run#
+r=r[r$run!="run",]#
+results=rbind(results,r)#
+}
+#create empty data frame called results#
+results=data.frame(c())#
+#
+## list all files called behavioral.txt#
+files=Sys.glob("/Volumes/schnyer/david/rtAT/RT03/Data/SART/???/behavior.txt")#
+#
+for (s in 1:length(files)){#
+#
+#reads in file; knows that comments start with a *. #
+r=read.table(files[s],header=TRUE,sep="	", comment.char="*")#
+r$date=substring(readLines(files[s])[4],14,33)#
+###take out reprinted header before each start to a new run#
+r=r[r$run!="run",]#
+## pull subject id and day from path#
+## IMPORTANT: if changed path above will need to change the numbers in the substring command#
+r$subject=substring(files[s],44,46)#
+r$subject=as.factor(data$subject)#
+#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$group=substring(files[s],44,44)#
+r$group=as.factor(r$group)#
+results=rbind(results,r)#
+}
+#create empty data frame called results#
+results=data.frame(c())#
+#
+## list all files called behavioral.txt#
+files=Sys.glob("/Volumes/schnyer/david/rtAT/RT03/Data/SART/???/behavior.txt")#
+#
+for (s in 1:length(files)){#
+#
+#reads in file; knows that comments start with a *. #
+r=read.table(files[s],header=TRUE,sep="	", comment.char="*")#
+r$date=substring(readLines(files[s])[4],14,33)#
+###take out reprinted header before each start to a new run#
+r=r[r$run!="run",]#
+## pull subject id and day from path#
+## IMPORTANT: if changed path above will need to change the numbers in the substring command#
+r$subject=substring(files[s],44,46)#
+r$subject=as.factor(r$subject)#
+#
+##if the first number in the subject number is 9 then it is healthy control #
+# 0 is depressed#
+r$group=substring(files[s],44,44)#
+r$group=as.factor(r$group)#
+results=rbind(results,r)#
+}
+path="~/Dropbox/Classes/R course/fall_2015/lesson_plans/week7/memory_data"
+paste(path,"/sub*.csv",sep="")
+files=paste(path,"/sub*.csv",sep="")
+Sys.glob(files)#
+all_sys=Sys.glob(files)
+memory_all=data.frame(c())#
+for (i in 1:length(all_sys)){#
+  memory=read.csv(all_sys[i])#
+  memory_all=rbind(memory_all,memory) #rbind with combine the data by rows#
+} #memory is the name we give it#
+#we are adding to the empty data frame we created called memory_all
+head(memory_all)
+tail(memory_all     )
+dim(memory_all)
+table(memory_all$sub)
+alldata=memory_all
+dfm=summaryBy(correct~sub+condition,alldata, FUN=mean)
+t.test(correct.mean~condition,dfm,paired=T)
+ma_ew=dfm[dfm$condition =="emotional","correct.mean"]
+ma_nw=dfm[dfm$condition =="neutral","correct.mean"]
+mean(ma_ew)
+mean(ma_nw)
+cir=summaryBy(RT~sub+correct, alldata, FUN=mean)#
+head(cir)#
+t.test(RT.mean~correct,cir,paired=T)#
+str(cir)
+path="~/Dropbox/Classes/R course/fall_2015/lesson_plans/week7/memory_data"
+head(alldata)#
+ts=summaryBy(correct~sub+times_studied,alldata,FUN=mean)#
+head(ts)
+t.test(correct.mean~times_studied,ts,paired=T)
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+head(g)
+#2. Convert the data to long format and call it grad (6pts)#
+idvar=c("subject","sex")#
+timevar=c("year")#
+times=c("year1","year2","year3","year4","year5")#
+names=c("satisfaction","work_hours_per_week")#
+satisfaction=c("year1.satisfaction","year2.satisfaction","year3.satisfaction","year4.satisfaction","year5.satisfaction")#
+work_hours_per_week=c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week")#
+varlist=list(satisfaction, work_hours_per_week)#
+grad=reshape(data=g, idvar=idvar, timevar=timevar, times=times,v.names=names,varying=varlist, direction="long")
+head(grad)
+grad1=reshape(g, idvar=c("subject","sex"), timevar="year",times = c("year1","year2","year3","year4","year5"), v.names=c("satisfaction","work_hours_per_week"),varying=list(c("year1.satisfaction","year2.satisfaction","year3.satisfaction","year4.satisfaction","year5.satisfaction"),c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week")),direction="long")
+head(grad1)
+grad=grad[order(grad$subject),]
+head(grad)
+grad_year3=grad[grad$year=="year3",]#
+plot(grad_year3$satisfaction,grad_year3$work_hours_per_week, pch=ifelse(grad_year3$sex=="male",1,0), col=ifelse(grad_year3$sex=="male","red","blue"), xlim=c(3.5,5),ylim=c(43,50),main="Scatter Plot of work hours and satisfaction",xlab="satisfaction",ylab="work_hours_per_week")#
+abline(lm(grad_year3$work_hours_per_week~grad_year3$satisfaction), lwd=1.5)
+boxplot(grad$work_hours_per_week ~ grad$year, ylab="work_hours_per_week", xlab="year",ylim=c(33,55))
+?lm
+year3=grad[grad$year=="year3",]
+plot(year3$satisfaction,year3$work_hours_per_week)
+plot(year3$satisfaction~year3$work_hours_per_week)
+grad=reshape(data=g, idvar= c("subject","sex"), timevar= c("year"),times=c("year1","year2","year3","year4","year5"),v.names= c("satisfaction","work_hours_per_week") ,varying=list(c("year1.satisfaction","year2.satisfaction","year3.satisfaction","year4.satisfaction","year5.satisfaction" ),c("year1.work_hours_per_week","year2.work_hours_per_week", "year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week")),direction="long")
+head(grad)
+head(grad1)
+grad=grad[order(grad$subject),]
+ear3=grad[grad$year=="year3",]#
+plot(year3$satisfaction,year3$work_hours_per_week, pch=ifelse(year3$sex=="male",1,0), col=ifelse(year3$sex=="male","red","blue"),xlim=c(3,5),ylim=c(35,55), main="Plot of Satisfaction and Hours Worked",xlab="Satisfaction",ylab="Hours Worked",
+)
+boxplot(grad$work_hours_per_week~grad$year, ylim=c(35,55), ylab="Hours Worked", xlab="year")#
+#
+xlim=c(35,55))
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+head(g)
+grad=melt(g)
+library(reshape2)
+grad=melt(g)
+grad
+plot(g$year3.satisfaction,g$year3.work_hours_per_week, xlab="Satisfaction",ylab="Hours Worked per Week", main="Satisfaction in Year 3 of Grad School Given Weekly Work Schedule", pch=ifelse(g$sex=="male", 1, 0), col=ifelse(g$sex=="male", "red", "blue"), las=1)#
+abline(lm(g$year3.work_hours_per_week~g$year3.satisfaction), lwd=1.5)#
+legend("topright", c("Male", "Female"), col=c("red", "blue"), pch=c(1,0))
+#idvar#
+idvar=c("subject","sex")#
+idvar#
+#
+#timevar (what do you want new categorical condition column to be called?)#
+timevar=c("year_in_school")#
+#
+#times (what are names of new conditions?)#
+times=c("year1","year2","year3","year4","year5")#
+#
+#v.names (what do you want new numeric outcome columns to be called?)#
+names=c("satisfaction","work_hours_per_week")#
+#
+#varying (what columns from wide format should be used to populate each outcome column)#
+satisfaction=c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction")#
+work_hours_per_week=c("year1.work_hours_per_week", "year2.work_hours_per_week", "year3.work_hours_per_week", "year4.work_hours_per_week", "year5.work_hours_per_week")#
+g_long=reshape(data=g, idvar=idvar, timevar=timevar, times=times ,v.names=names ,varying=list(c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction"),c("year1.work_hours_per_week", "year2.work_hours_per_week", "year3.work_hours_per_week", "year4.work_hours_per_week", "year5.work_hours_per_week")), direction="long")#
+g_long
+g_long
+head(g_long)
+head(grad1)
+boxplot(g_long$work_hours_per_week~g_long$year_in_school, main="Weekly Hours Worked by Year in Grad School", ylab="Weekly Hours Worked", xlab="Year in School", ylim = c(35, 55))
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+g=read.csv("/Users/pongpong0223/Dropbox/Data Analysis with R/grad_survey_wide_format.csv")#
+#
+#2. Convert the data to long format and call it grad (6pts)#
+grad=reshape(data=g, idvar=c("subject","sex"), timevar=c("year"), times=c("year1", "year2", "year3", "year4", "year5"), v.names=c("satisfaction", "work_hours_per_week"), varying=list(c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction"), c("year1.work_hours_per_week", "year2.work_hours_per_week", "year3.work_hours_per_week", "year4.work_hours_per_week", "year5.work_hours_per_week")), direction="long")#
+grad
+head(grad)
+head(grad1)
+year3=grad[grad$year=="year3", ]#
+year3#
+plot(year3$satisfaction, year3$work_hours_per_week, xlim=c(3.5,4.8), ylim = c(43,48), col=ifelse(year3$sex=="male", "red", "blue"), pch=ifelse(year3$sex=="male", 1, 0), main="Correlation between satisfaction and hours worked per week - 3rd year", xlab="Satisfaction", ylab="Hours worked per week", las=1)#
+abline(lm(year3$work_hours_per_week~year3$satisfaction), lwd=1.5)
+boxplot(grad$work_hours_per_week ~ grad$year, ylab="Hours worked per week", xlab="Year in grad school", ylim = c(35,55))
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+grad = reshape(data=g, idvar=c("subject", "sex"), timevar= c("year"),times= c("year1", "year2", "year3", "year4", "year5"),v.names=c("satisfaction", "work_hours_per_week"),varying=list(c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction"),c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week", "year4.work_hours_per_week", "year5.work_hours_per_week")),direction="long")
+head(grad)
+head(grad1)
+plot(grad$satisfaction[grad$year=="year3"], grad$work_hours_per_week[grad$year=="year3"], xlab="Satisfaction", ylab="Hours Worked Per Week", main="Relationship between hours worked per week and satisfaction", pch = ifelse(grad$sex=="male", 21, 22), col = ifelse(grad$sex=="male","red","blue"), las=1)#
+abline(lm(grad$work_hours_per_week[grad$year=="year3"]~grad$satisfaction[grad$year=="year3"]), lwd = 1.5)
+boxplot(grad$work_hours_per_week~grad$year, ylab="Hours Worked Per Week", xlab="Year", main="Hours worked per week by year", ylim=c(35,55))
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+entire_g=reshape(data=g, idvar=c("subject","sex"), timevar=c("year"), times=c(1,2,3,4,5), v.names=c("satisfaction","work_hours_per_week"), varying=list(c("year1.satisfaction","year2.satisfaction","year3.satisfaction","year4.satisfaction","year5.satisfaction"),c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week")), direction="long")
+head(entire_g)
+head(grad1)
+plot(g$year3.satisfaction,g$year3.work_hours_per_week, xlab="Year 3 Satisfaction",ylab="Year 3 Hours Worked Per Week",main="Year 3",las=1,col=ifelse(g$sex=="male","red","blue"),pch=ifelse(g$sex=="male",1,0))#
+abline(lm(g$year3.satisfaction~g$year3.work_hours_per_week),lwd=1.5)
+boxplot(entire_g$work_hours_per_week~entire_g$year, ylim=c(35,55))
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+head(g)
+grad=reshape(data=g, idvar=c("subject","sex"), timevar="year" ,times=c("year1","year2","year3","year4","year5") ,v.names=c("satisfaction","work_hours_per_week") ,varying=list(c("year1.satisfaction","year2.satisfaction","year3.satisfaction", "year4.satisfaction","year5.satisfaction"),c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week")), direction="long")
+head(grad)
+head(grad1)
+grad=grad[order(grad$subject),]
+plot(g$year3.satisfaction, g$year3.work_hours_per_week, main="Scatterplot of Satisfaction", xlab="satisfaction in year 3", ylab="hours worked per week in year 3")
+plot(male$year3.satisfaction, male$year3.work_hours_per_week, pch=16, col="red", main="Scatterplot of Satisfaction", xlab="satisfaction in year 3", ylab="hours worked per week in year 3")#
+par(new=TRUE)#
+plot(female$year3.satisfaction, female$year3.work_hours_per_week, pch=15, col="blue", main="Scatterplot of Satisfaction", xlab="", ylab= "", xaxt='n', yaxt='n')#
+?pch#
+abline(lm(g$year3.satisfaction~g$year3.work_hours_per_week))
+male = g[c(2,4,6,8,10,12,14,16,18,20), ]#
+female = g[c(3,5,7,9,11,13,15,17,19,21), ]#
+plot(male$year3.satisfaction, male$year3.work_hours_per_week, pch=16, col="red", main="Scatterplot of Satisfaction", xlab="satisfaction in year 3", ylab="hours worked per week in year 3")#
+par(new=TRUE)#
+plot(female$year3.satisfaction, female$year3.work_hours_per_week, pch=15, col="blue", main="Scatterplot of Satisfaction", xlab="", ylab= "", xaxt='n', yaxt='n')#
+?pch#
+abline(lm(g$year3.satisfaction~g$year3.work_hours_per_week))
+boxplot(g$year5.work_hours_per_week, ylab="hours worked per week", xlab="year")
+g=read.csv("~/Dropbox/Classes/R course/lesson_plans/class_10_23_14/grad_survey_wide_format.csv")
+grad=reshape(data=g, idvar=c("subject","sex"), timevar="years", times=c("year1","year2","year3","year4","year5"),v.names=c("satisfaction","work_hours_per_week"),varying=list(c("year1.satisfaction","year2.satisfaction","year3.satisfaction","year4.satisfaction","year5.satisfaction" ),c("year1.work_hours_per_week","year2.work_hours_per_week","year3.work_hours_per_week","year4.work_hours_per_week","year5.work_hours_per_week" )), direction="long")#
+grad#
+head(g)
+head(grad)
+head(grad1)
+grad=grad[order(grad$subject),]
+plot(g$year3.satisfaction, g$year3.work_hours_per_week, main="Scatterplot of Satisfaction", xlab="satisfaction in year 3", ylab="hours worked per week in year 3")#
+male = g[c(2,4,6,8,10,12,14,16,18,20), ]#
+female = g[c(3,5,7,9,11,13,15,17,19,21), ]#
+plot(male$year3.satisfaction, male$year3.work_hours_per_week, pch=16, col="red", main="Scatterplot of Satisfaction", xlab="satisfaction in year 3", ylab="hours worked per week in year 3")#
+par(new=TRUE)#
+plot(female$year3.satisfaction, female$year3.work_hours_per_week, pch=15, col="blue", main="Scatterplot of Satisfaction", xlab="", ylab= "", xaxt='n', yaxt='n')#
+?pch#
+abline(lm(g$year3.satisfaction~g$year3.work_hours_per_week))
+grad_long=reshape(data=g, idvar=c("subject","sex"), #
+timevar=c("Years"),#
+times= c("year1","year2","year3","year4","year5"),#
+v.names= c("satisfaction", "work_hours_per_week"),#
+varying=list(c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction"), c("year1.work_hours_per_week", "year2.work_hours_per_week", "year3.work_hours_per_week","year4.work_hours_per_week", "year5.work_hours_per_week")),#
+direction="long")#
+grad_long
+head(grad_long)
+head(grad1)
+year3satis = grad[grad$variable == "year3.satisfaction",]#
+year3work = grad[grad$variable == "year3.work_hours_per_week",]#
+#grad #check if grad is looking the same#
+#
+#year3satis #check if it's being extracted correctly#
+#year3work #check if it's being extracted correctly#
+#
+regline = lm(year3satis$value~year3work$value)#
+#
+plot(year3satis$value~year3work$value, #
+col = ifelse((year3satis$sex == "female" & year3work$sex == "female"), "blue", "red"),#
+pch = ifelse((year3satis$sex == "female" & year3work$sex == "female"), 0, 1),#
+xlab = "Overall Satisfaction Rating in Year 3",#
+ylab = "Hours Worked Per Week in Year 3",#
+main = "Relationship between Overall Satisfaction Rating and Hours Worked Per Week",#
+par(las=1))#
+abline(regline, lwd = 1.5)
+grad = melt(g)
+year3satis = grad[grad$variable == "year3.satisfaction",]#
+year3work = grad[grad$variable == "year3.work_hours_per_week",]#
+#grad #check if grad is looking the same#
+#
+#year3satis #check if it's being extracted correctly#
+#year3work #check if it's being extracted correctly#
+#
+regline = lm(year3satis$value~year3work$value)#
+#
+plot(year3satis$value~year3work$value, #
+col = ifelse((year3satis$sex == "female" & year3work$sex == "female"), "blue", "red"),#
+pch = ifelse((year3satis$sex == "female" & year3work$sex == "female"), 0, 1),#
+xlab = "Overall Satisfaction Rating in Year 3",#
+ylab = "Hours Worked Per Week in Year 3",#
+main = "Relationship between Overall Satisfaction Rating and Hours Worked Per Week",#
+par(las=1))#
+abline(regline, lwd = 1.5)
+boxplot(work_hours_per_week~Years, data = grad_long,#
+xlab = "Years",#
+ylab = "Hours Worked Per Week",#
+main = "Overall Hours Worked Per Week Through the Years",#
+ylim = c(35, 55),#
+labels = FALSE)
+grad <- reshape(data=g, idvar=c("subject","sex"), timevar=("year"), times=c("yr1", "yr2", "yr3", "yr4", "yr5"), v.names=c("satisfaction", "work_hrs_per_wk"), varying=list(c("year1.satisfaction", "year2.satisfaction", "year3.satisfaction", "year4.satisfaction", "year5.satisfaction"), c("year1.work_hours_per_week", "year2.work_hours_per_week", "year3.work_hours_per_week", "year4.work_hours_per_week", "year5.work_hours_per_week")), direction="long")#
+grad
+plot(grad$satisfaction, grad$work_hrs_per_wk, main="Hours worked in and satisfaction with grad school", las=1, ylab="Work [hr/wk]", xlab="Satisfaction [1-5]", col=ifelse(grad$sex=="male", "red", "blue"), pch=ifelse(grad$sex=="male", 1, 0))#
+legend("topright", c("Male", "Female"), pch=c(1,0), col=c("red","blue"))#
+abline(lm(grad$work_hrs_per_wk ~ grad$satisfaction), lwd=1.5)
+boxplot(grad$work_hrs_per_wk ~ grad$year, main="Hours worked by year in grad school", xlab="Year in school", ylab="Work time [hrs/wk]", ylim=c(35,55))#
+text(1.5, 35, "Note: ordinate scale does not start at 0", cex=.5)
+participant = "37"#
+list = 1#
+#
+one=read.csv(paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/words/all_words_list",list,".csv",sep=""))#
+#
+head(one)#
+#
+#create a sequence from 1 to however many word pairs are in the list (54)#
+number=seq(1,dim(one)[1])#
+#
+#randomize numbers#
+random1=sample(number)#
+random2=sample(number)#
+random3=sample(number)#
+#
+###order the list using the randomized numbers#
+#for the study phase (random_study)#
+random_study=one[random1,]#
+#
+#for the first test phase (random_study_recall)#
+random_study_recall=one[random2,]#
+#
+#for the actual recall tests#
+random_recall=one[random3,]#
+#
+night_test= random_recall[1:((dim(one)[1])/2),]#
+morning_test= random_recall[(((dim(one)[1])/2)+1):(dim(one)[1]),]#
+#
+#write out #
+write.csv(random_study,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(random_study_recall,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(night_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/night_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+write.csv(morning_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/morning_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)
+participant = "31"#
+list = 1#
+#
+one=read.csv(paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/words/all_words_list",list,".csv",sep=""))#
+#
+head(one)#
+#
+#create a sequence from 1 to however many word pairs are in the list (54)#
+number=seq(1,dim(one)[1])#
+#
+#randomize numbers#
+random1=sample(number)#
+random2=sample(number)#
+random3=sample(number)#
+#
+###order the list using the randomized numbers#
+#for the study phase (random_study)#
+random_study=one[random1,]#
+#
+#for the first test phase (random_study_recall)#
+random_study_recall=one[random2,]#
+#
+#for the actual recall tests#
+random_recall=one[random3,]#
+#
+night_test= random_recall[1:((dim(one)[1])/2),]#
+morning_test= random_recall[(((dim(one)[1])/2)+1):(dim(one)[1]),]#
+#
+#write out #
+write.csv(random_study,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(random_study_recall,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(night_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/night_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+write.csv(morning_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/morning_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)
+participant = "44"#
+list = 2#
+#
+one=read.csv(paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/words/all_words_list",list,".csv",sep=""))#
+#
+head(one)#
+#
+#create a sequence from 1 to however many word pairs are in the list (54)#
+number=seq(1,dim(one)[1])#
+#
+#randomize numbers#
+random1=sample(number)#
+random2=sample(number)#
+random3=sample(number)#
+#
+###order the list using the randomized numbers#
+#for the study phase (random_study)#
+random_study=one[random1,]#
+#
+#for the first test phase (random_study_recall)#
+random_study_recall=one[random2,]#
+#
+#for the actual recall tests#
+random_recall=one[random3,]#
+#
+night_test= random_recall[1:((dim(one)[1])/2),]#
+morning_test= random_recall[(((dim(one)[1])/2)+1):(dim(one)[1]),]#
+#
+#write out #
+write.csv(random_study,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(random_study_recall,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(night_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/night_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+write.csv(morning_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/morning_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)
+11.25+10.25+10.5
+32/3
+40+100+75+75
+participant = "46"#
+list = 1#
+#
+one=read.csv(paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/words/all_words_list",list,".csv",sep=""))#
+#
+head(one)#
+#
+#create a sequence from 1 to however many word pairs are in the list (54)#
+number=seq(1,dim(one)[1])#
+#
+#randomize numbers#
+random1=sample(number)#
+random2=sample(number)#
+random3=sample(number)#
+#
+###order the list using the randomized numbers#
+#for the study phase (random_study)#
+random_study=one[random1,]#
+#
+#for the first test phase (random_study_recall)#
+random_study_recall=one[random2,]#
+#
+#for the actual recall tests#
+random_recall=one[random3,]#
+#
+night_test= random_recall[1:((dim(one)[1])/2),]#
+morning_test= random_recall[(((dim(one)[1])/2)+1):(dim(one)[1]),]#
+#
+#write out #
+write.csv(random_study,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(random_study_recall,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/study_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+#
+write.csv(night_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/night_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)#
+write.csv(morning_test,paste("/Volumes/schnyer/stephanie/sleep_source_memory_project/memory_consolidation_task/morning_recall_list",list,"sub",participant,".csv",sep=""),row.names=FALSE,quote=FALSE)
