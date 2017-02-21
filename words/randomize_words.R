@@ -2,6 +2,7 @@
 participant = "01" ## two digit number in quotes
 list = 1 # either 1 or 2
 
+#define path where you downloade memory_consolidation_task. Make sure to end in the /
 path="/"
 
 one=read.csv(paste("memory_consolidation_task/words/all_words_list",list,".csv",sep=""))
